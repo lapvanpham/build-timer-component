@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import Counter from './components/Counter/Counter';
 
 function App() {
+  const [counts, setCounts] = useState([0, 0]);
+
+  console.log('initial counts', counts);
+
+  function increase(index, amount) {
+    const tempCounts = [...counts];
+
+    const newEl = tempCounts[index] + amount;
+
+    tempCounts.splice(index, 1, newEl);
+
+    setCounts(tempCounts);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <Counter no={1} count={counts[0]} handleClick={() => increase(0, 1)} />
+      <Counter no={2} count={counts[1]} handleClick={() => increase(1, 2)} />
     </div>
   );
 }
